@@ -45,8 +45,9 @@ class StudentController extends Controller
 
         if($homework) {
             Homework::where('id', $id)->update(['status' => $request->input('status')]);
+            $updatedHomework = Homework::find($id);
 
-            return response()->json(['message' => 'Student info updated succesfully.'], 200);
+            return response()->json(['message' => 'Homework status updated succesfully.', 'data' => ['homework' => $updatedHomework]], 200);
         } else {
             return response()->json(['error' => 'Homework not found.'], 404);
         }
