@@ -1,0 +1,194 @@
+{
+	"info": {
+		"_postman_id": "81a46a80-7150-499e-82b2-5488af7b9f75",
+		"name": "Teacher-Student-Homework",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31351043"
+	},
+	"item": [
+		{
+			"name": "Teacher",
+			"item": [
+				{
+					"name": "Create Homework",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "24|vkQ9pfYZP9HZ72EC9gfgdgTYA3OwkYHv0emF5iDI59c8c462"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"teacher_name\": \"Hidayah Ishak\",\r\n    \"student_name\": \"Aina Aqilah\",\r\n    \"title\": \"English Assignment Test\",\r\n    \"description\": \"Complete exercises 1-15.\",\r\n    \"due_date\": \"01-12-2023\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/teacher/create-homework"
+					},
+					"response": []
+				},
+				{
+					"name": "Assign Homework",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "24|vkQ9pfYZP9HZ72EC9gfgdgTYA3OwkYHv0emF5iDI59c8c462"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"homeworks\": [\r\n    {\r\n      \"title\": \"Science Assignment\",\r\n      \"description\": \"Complete exercises 1-10.\",\r\n      \"due_date\": \"10-12-2023\",\r\n      \"status\": \"pending\",\r\n      \"teacher_name\": \"Hidayah Ishak\",\r\n      \"students\": [\r\n        {\r\n          \"name\": \"Aina Aqilah\"\r\n        },\r\n        {\r\n          \"name\": \"Letchumy a/p Subramaniam\"\r\n        }\r\n      ]\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/teacher/assigned-homework"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "List Homework",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "26|z2U04K3MTZIfQh0Tz039OGjvyGqaM8WjlPjolvP2a812c020"
+							}
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": "http://localhost:8000/api/student/list-homework"
+					},
+					"response": []
+				},
+				{
+					"name": "Submit Homework",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "26|z2U04K3MTZIfQh0Tz039OGjvyGqaM8WjlPjolvP2a812c020"
+							}
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : 12,\r\n    \"status\" : \"submitted\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8000/api/student/submit-homework/12"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "aaina",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password123",
+							"type": "text"
+						}
+					]
+				},
+				"url": "http://localhost:8000/api/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": {
+						"token": "23|Q76QApulVfwwemsD3d0MHBAafzqPXEns0dRtpEXJ449d0a50"
+					}
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8000/api/logout"
+			},
+			"response": []
+		}
+	]
+}
