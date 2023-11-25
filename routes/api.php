@@ -13,11 +13,11 @@ Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sa
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('student')->group(function () {
         Route::get('list-homework', [StudentController::class, 'getListHomework']);
-        Route::post('submit-homework/{homeworkId}', [StudentController::class, 'submitHomework']);
+        Route::put('submit-homework/{homeworkId}', [StudentController::class, 'submitHomework']);
     });
 
     Route::prefix('teacher')->group(function () {
         Route::post('create-homework', [TeacherController::class, 'createHomework']);
-        Route::put('assigned-homework', [TeacherController::class, 'updateAssignedHomework']);
+        Route::post('assigned-homework', [TeacherController::class, 'updateAssignedHomework']);
     });
 });
