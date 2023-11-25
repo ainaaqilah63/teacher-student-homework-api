@@ -1,6 +1,15 @@
 # teacher-student-homework-api
 My technical assessment
 
+Steps to setup the projects: run the following accordingly.
+```
+php artisan migrate
+php artisan db:seed --class=RolesTableSeeder
+php artisan db:seed --class=UsersTableSeeder
+import the postman collection
+```
+
+
 Stories:
 ```
 1. As a teacher/student, I want to be able to login to create or update any homework.
