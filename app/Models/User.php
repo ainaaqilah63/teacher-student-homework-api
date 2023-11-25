@@ -35,6 +35,16 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id');
     }
 
+    public function isTeacher()
+    {
+        return $this->tokens->where('name', 'teacher-token')->isNotEmpty();
+    }
+
+    public function isStudent()
+    {
+        return $this->tokens->where('name', 'student-token')->isNotEmpty();
+    }
+
     public function teacherHomeworks()
     {
         return $this->hasMany(Homework::class, 'teacher_id');

@@ -6,17 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Homework;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TeacherController extends Controller
 {
     private function getUserAunthentication()
     {
-        return auth()->user() ?: response()->json(['error' => 'User not authenticated'], 401);
+        return Auth::user()->isTeacher() ? auth()->user() : null;
     }
 
     public function createHomework(Request $request)
     {
         $teacher = $this->getUserAunthentication();
+
+        if(is_null($teacher)) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
 
         $request->validate([
             'teacher_name' => 'required',
@@ -61,6 +66,10 @@ class TeacherController extends Controller
     public function updateAssignedHomework(Request $request)
     {
         $teacher = $this->getUserAunthentication();
+
+        if(is_null($teacher)) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
 
         $data = $request->all();
 

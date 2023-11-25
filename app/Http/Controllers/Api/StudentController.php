@@ -4,36 +4,38 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Homework;
-use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
     private function getUserAunthentication()
     {
-        return auth()->user() ?: response()->json(['error' => 'User not authenticated'], 401);
+        return Auth::user()->isStudent() ? auth()->user() : null;
     }
 
     public function getListHomework() {
         $student = $this->getUserAunthentication();
 
+        if(is_null($student)) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
+
         $homeworks = Homework::where('student_id', $student->id)->get();
 
         if($homeworks->count() > 0) {
-            return response()->json([
-                'status' => 200,
-                'homeworks' => $homeworks
-            ], 200);
+            return response()->json(['homeworks' => $homeworks], 200);
         } else {
-            return response()->json([
-                'status' => 404,
-                'message' => 'No record found'
-            ], 404);
+            return response()->json(['message' => 'No record found'], 404);
         }
     }
 
     public function submitHomework(Request $request, int $id) {
-        $this->getUserAunthentication();
+        $student = $this->getUserAunthentication();
+
+        if(is_null($student)) {
+            return response()->json(['error' => 'User not authenticated'], 401);
+        }
 
         $request->validate([
             'status' => 'required'
