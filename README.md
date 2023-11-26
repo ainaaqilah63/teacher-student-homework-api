@@ -3,6 +3,7 @@ My technical assessment
 
 Steps to setup the projects: run the following accordingly.
 ```
+setup the database with name tuition_mngmnt
 php artisan migrate
 php artisan db:seed --class=RolesTableSeeder
 php artisan db:seed --class=UsersTableSeeder
